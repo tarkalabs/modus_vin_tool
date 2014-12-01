@@ -8,10 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = ModusVinTool::VERSION
   spec.authors       = ["Robert Gallegos"]
   spec.email         = ["robertg@modusgo.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = "Modus Vin Tool API Compatibility Check"
+  spec.description   = ""
   spec.homepage      = ""
   spec.license       = "MIT"
+
+  spec.add_dependency "nokogiri"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -20,4 +22,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec"
 end
