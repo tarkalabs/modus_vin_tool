@@ -67,8 +67,16 @@ module ModusVinTool
       @parsed_response = JSON.parse(raw_response)
     end
 
-    def compatible
+    def compatible?
       @parsed_response['compatible']
+    end
+
+    def incompatibility_code
+      @parsed_response['incompatibility_code']
+    end
+
+    def incompatibility_reason
+      @parsed_response['incompatibility_reason']
     end
 
     def make

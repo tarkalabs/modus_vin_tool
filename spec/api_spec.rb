@@ -2,6 +2,8 @@ require 'spec_helper.rb'
 
 describe ModusVinTool::API do
 
+  # FIXME - will need to mock these api responses since rules can change and don't actually want it to go out if we don't need it to
+
   it "hit api with no params to get error" do
     info = {device_name: '', vin: ''}
     check = ModusVinTool::API.new(info)
@@ -22,7 +24,15 @@ describe ModusVinTool::API do
     info = {device_name: 'lmu3030', vin: '1NXBA02E8TZ394564'}
     check = ModusVinTool::API.new(info)
     res = check.get_compatibility_info
-    expect(res.compatible).to eq true
+    expect(res.compatible?).to eq true
+  end
+
+  it "hit api for incompatibility reason" do
+    ModusVinTool.configure_with('./appconfig.yml')
+    info = {device_name: 'lmu3030', vin: 'WDDDJ75X06A017645'}
+    check = ModusVinTool::API.new(info)
+    res = check.get_compatibility_info
+    expect(res.incompatibility_reason).to eq 'Other'
   end
 
 end
