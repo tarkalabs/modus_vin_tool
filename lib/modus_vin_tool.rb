@@ -6,16 +6,48 @@ require "modus_vin_tool/version"
 
 module ModusVinTool
 
+  @config = {
+    account_name: '',
+    api_key:''
+  }
+
+  @valid_config_keys = @config.keys
+
+  def self.configure(opts = {})
+    opts.each{|k, v| @config[k.to_sym] = v if @valid_config_keys.include? k.to_sym}
+  end
+
+  def self.configure_with(path_to_yaml)
+    begin 
+      config = YAML::load(IO.read(path_to_yaml))
+    rescue Errno::ENOENT
+      log(:warning, "File not found #{File.expand_path(path_to_yaml)}")
+    rescue Psych::SyntaxError
+      log(:warning, "#{File.expand_path(path_to_yaml)} syntax invalid.")
+    end
+    configure(config)
+  end
+
+  def self.config
+    @config
+  end
+
+
   class API
     def initialize(info = {})
       @info = info
     end
     
     def get_compatibility_info
-      account_name = @info[:account_name]
+      account_name = ModusVinTool.config[:account_name]
+      api_key      = ModusVinTool.config[:api_key]
       device_name  = @info[:device_name]
-      api_key      = @info[:api_key]
       vin          = @info[:vin]
+
+      p account_name
+      p api_key
+      p device_name
+      p vin
 
       raw_response = send_request(account_name, device_name, api_key, vin)
       response = Response.new(raw_response)
