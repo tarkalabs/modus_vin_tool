@@ -44,11 +44,6 @@ module ModusVinTool
       device_name  = @info[:device_name]
       vin          = @info[:vin]
 
-      p account_name
-      p api_key
-      p device_name
-      p vin
-
       raw_response = send_request(account_name, device_name, api_key, vin)
       response = Response.new(raw_response)
       return response
