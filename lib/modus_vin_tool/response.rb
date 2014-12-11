@@ -27,6 +27,10 @@ module ModusVinTool
       @parsed_response['model']
     end
 
+    def trim
+      @parsed_response['trim']
+    end
+
     def year
       @parsed_response['year']
     end
