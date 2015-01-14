@@ -9,18 +9,16 @@ module ModusVinTool
 
     def compatible?(device_name = nil)
       return @parsed_response['compatible'] if @parsed_response['device']
-    
       device_list = @parsed_response['devices']
-      p device_list
-
-      device_info = device_list.select{|d| d['name'] == device_name }.first
-      
-      p device_info
       return device_info['compatible'] if device_info
     end
 
+    def devices
+      return @parsed_response['devices'] 
+    end
+
     def incompatible_devices
-      return @parsed_response['devices'].select{|d| !d['compatible'] }.map{|d| d['name'] }
+      devices.select{|d| !d['compatible'] }.map{|d| d['name'] }
     end
 
     def incompatibility_code
