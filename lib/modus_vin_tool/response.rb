@@ -8,6 +8,8 @@ module ModusVinTool
     end
 
     def compatible?(device_name = nil)
+      return false if not_found?
+
       return @parsed_response['compatible'] if @parsed_response['device']
       device_list = @parsed_response['devices']
 
@@ -45,6 +47,10 @@ module ModusVinTool
 
     def year
       @parsed_response['year']
+    end
+
+    def not_found?
+      @parsed_response["code"] == "404"
     end
 
     def error_code
