@@ -49,6 +49,14 @@ module ModusVinTool
       @parsed_response['year']
     end
 
+    def mpg
+      @parsed_response['mpg']
+    end
+
+    def fuel_tank
+      @parsed_response['fuel_tank']
+    end
+
     def not_found?
       @parsed_response["code"] == "404"
     end
