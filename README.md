@@ -20,7 +20,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+RTFS
+
+## Specs
+
+Make sure you add the .env with ACCOUNT_NAME & VIN_TOOL_KEY.
+
 
 ## Contributing
 

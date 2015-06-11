@@ -3,18 +3,22 @@ module ModusVinTool
     attr_reader :raw_response, :parsed_response
 
     def initialize(raw_response)
-      @raw_response = raw_response  
+      @raw_response = raw_response
       @parsed_response = JSON.parse(raw_response)
     end
 
     def compatible?(device_name = nil)
+      return false if not_found?
+
       return @parsed_response['compatible'] if @parsed_response['device']
       device_list = @parsed_response['devices']
+
+      device_info = device_list.select{|d| d['name'] == device_name }.first
       return device_info['compatible'] if device_info
     end
 
     def devices
-      return @parsed_response['devices'] 
+      return @parsed_response['devices']
     end
 
     def incompatible_devices
@@ -43,6 +47,18 @@ module ModusVinTool
 
     def year
       @parsed_response['year']
+    end
+
+    def mpg
+      @parsed_response['mpg']
+    end
+
+    def fuel_tank
+      @parsed_response['fuel_tank']
+    end
+
+    def not_found?
+      @parsed_response["code"] == "404"
     end
 
     def error_code

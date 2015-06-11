@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'net/http'
 require 'json'
-
+require "yaml"
 require "modus_vin_tool/version"
 require "modus_vin_tool/api"
 require "modus_vin_tool/response"
